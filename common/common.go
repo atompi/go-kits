@@ -1,6 +1,8 @@
 package common
 
-import "strings"
+import (
+	"strings"
+)
 
 func StringContains(raw string, elements []string) bool {
 	for _, e := range elements {
@@ -27,4 +29,10 @@ func StringHasSuffix(raw string, elements []string) bool {
 		}
 	}
 	return false
+}
+
+func GetSubString(rawString string, matchString string, start int, end int) (subString string) {
+	stringSplit := strings.Split(rawString, matchString)
+	subString = strings.Join(stringSplit[start-1:end], matchString)
+	return
 }
