@@ -33,6 +33,10 @@ func StringHasSuffix(raw string, elements []string) bool {
 
 func GetSubString(rawString string, matchString string, start int, end int) (subString string) {
 	stringSplit := strings.Split(rawString, matchString)
-	subString = strings.Join(stringSplit[start-1:end], matchString)
+	if end == -1 {
+		subString = strings.Join(stringSplit[start-1:], matchString)
+	} else {
+		subString = strings.Join(stringSplit[start-1:end], matchString)
+	}
 	return
 }
