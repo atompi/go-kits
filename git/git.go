@@ -7,7 +7,7 @@ import (
 func Clone(url string, workDir string) (r *git.Repository, err error) {
 	o := &git.CloneOptions{
 		URL:               url,
-		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
+		RecurseSubmodules: git.NoRecurseSubmodules,
 	}
 	r, err = git.PlainClone(workDir, false, o)
 	if err != nil {
