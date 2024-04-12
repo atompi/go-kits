@@ -4,8 +4,8 @@ package handler
 import (
 	"context"
 
-	"github.com/atompi/autom/pkg/metrics/middleware"
-	"github.com/atompi/autom/pkg/metrics/prometheus"
+	"github.com/atompi/go-kits/metrics/middleware"
+	"github.com/atompi/go-kits/metrics/prometheus"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )

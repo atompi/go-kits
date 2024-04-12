@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/atompi/autom/pkg/metrics"
+	"github.com/atompi/go-kits/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

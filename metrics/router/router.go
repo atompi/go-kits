@@ -1,11 +1,10 @@
 package router
 
 import (
-	"github.com/atompi/autom/pkg/metrics/handler"
-	"github.com/atompi/autom/pkg/options"
+	"github.com/atompi/go-kits/metrics/handler"
 	"github.com/gin-gonic/gin"
 )
 
-func MetricsRouter(routerGroup *gin.RouterGroup, opts options.Options) {
-	routerGroup.GET(opts.APIServer.Metrics.Path, handler.NewPromHandler())
+func MetricsRouter(routerGroup *gin.RouterGroup, metricsPath string) {
+	routerGroup.GET(metricsPath, handler.NewPromHandler())
 }

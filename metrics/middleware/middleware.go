@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/atompi/autom/pkg/metrics"
+	"github.com/atompi/go-kits/metrics"
 )
 
 // Config is the configuration for the middleware factory.
