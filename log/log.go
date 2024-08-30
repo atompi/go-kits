@@ -6,8 +6,8 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func InitLogger(logLevel string, logPath string, maxSize int, maxAge int, comp bool) *zap.Logger {
-	writeSyncer := getLogWriter(logPath, maxSize, maxAge, comp)
+func InitLogger(logLevel string, logPath string, maxSize int, maxAge int, compress bool) *zap.Logger {
+	writeSyncer := getLogWriter(logPath, maxSize, maxAge, compress)
 	encoder := getEncoder()
 	level := zapcore.InfoLevel
 	switch logLevel {
@@ -34,12 +34,12 @@ func getEncoder() zapcore.Encoder {
 	return zapcore.NewConsoleEncoder(encoderConfig)
 }
 
-func getLogWriter(logPath string, maxSize int, maxAge int, comp bool) zapcore.WriteSyncer {
+func getLogWriter(logPath string, maxSize int, maxAge int, compress bool) zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
 		Filename: logPath,
 		MaxSize:  maxSize,
 		MaxAge:   maxAge,
-		Compress: comp,
+		Compress: compress,
 	}
 	return zapcore.AddSync(lumberJackLogger)
 }
