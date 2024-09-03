@@ -7,23 +7,21 @@ import (
 )
 
 func InitLogger(logLevel string, logPath string, maxSize int, maxAge int, compress bool) *zap.Logger {
-	writeSyncer := getLogWriter(logPath, maxSize, maxAge, compress)
+	debugWriteSyncer := getLogWriter(logPath+".debug.log", maxSize, maxAge, compress)
+	infoWriteSyncer := getLogWriter(logPath+".info.log", maxSize, maxAge, compress)
+	warnWriteSyncer := getLogWriter(logPath+".warn.log", maxSize, maxAge, compress)
+	errorWriteSyncer := getLogWriter(logPath+".error.log", maxSize, maxAge, compress)
+
 	encoder := getEncoder()
-	level := zapcore.InfoLevel
-	switch logLevel {
-	case "DEBUG":
-		level = zapcore.DebugLevel
-	case "INFO":
-		level = zapcore.InfoLevel
-	case "WARN":
-		level = zapcore.WarnLevel
-	case "ERROR":
-		level = zapcore.ErrorLevel
-	default:
-		level = zapcore.InfoLevel
-	}
-	core := zapcore.NewCore(encoder, writeSyncer, level)
-	logger := zap.New(core, zap.AddCaller())
+
+	debugCore := zapcore.NewCore(encoder, debugWriteSyncer, zapcore.DebugLevel)
+	infoCore := zapcore.NewCore(encoder, infoWriteSyncer, zapcore.InfoLevel)
+	warnCore := zapcore.NewCore(encoder, warnWriteSyncer, zapcore.WarnLevel)
+	errorCore := zapcore.NewCore(encoder, errorWriteSyncer, zapcore.ErrorLevel)
+
+	tee := zapcore.NewTee(debugCore, infoCore, warnCore, errorCore)
+
+	logger := zap.New(tee)
 	return logger
 }
 
